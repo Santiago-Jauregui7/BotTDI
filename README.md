@@ -17,3 +17,19 @@ Funcionalidades:
 • Por lo menos una respuesta relacionada a la consulta de otra API (puede ser de las sugeridas por el profesor). ########
 • Registrar las interacciones en un archivo .csv para medir el uso del bot en otro notebook y/o reutilizar el archivo para devolver historial de las últimas 5 consultas a un usuario con el comando /historial. 
 • El .csv de historial debe contener (de mínima), la siguiente información: ○ Horario (timestamp) en que se envió el mensaje ○ Chat.id que envió el mensaje ○ Nombre de quien envió el mensaje ○ Mensaje enviado 
+
+
+- Ideas de proposito del bot:
+  Bot educativo en relacion a temas de finanzas, politica actual y cultura general
+  que pueda tratar temas de presidentes hisoricos, calculo de dolar, dsitribucion de partidos por porivincia, riesgo pais, confianza en los gobiernos, inflacion, etc.
+  serie de comandos:
+  /hola o decir algun saludo sin usar comando
+  /ayuda (donde va a detallar sus funciones)
+  /finalizar
+
+  luego, es necesario que entienda audios (simplemente que reconozca que es un archivo de auidio y decir que no lo puede decodificar)
+  mostrar dashborads no solamente respuestas de texto
+  minimo 4 funciones para mortrar
+
+
+  se utilizara la API de Telegram y La API datos argentina
