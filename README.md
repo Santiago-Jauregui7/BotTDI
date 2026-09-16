@@ -31,5 +31,17 @@ Funcionalidades:
   mostrar dashborads no solamente respuestas de texto
   minimo 4 funciones para mortrar
 
+EN LOS ARCHIVOS .env TODAS LAS VARIABLES VAN EN MAYUSCULAS Y NO SE PUEDEN CAMBIAR DURANTE LA EJECUCION DEL PROGRAMA
 
   se utilizara la API de Telegram y La API datos argentina
+
+  ### Estrucutura de carpetas:
+
+  Proyecto -> carpeta: bot_base_con_func
+                         |
+                         |--> .env (API_KEY_DATOS_ARG; CHAT_ID_ADMIN)
+                         |
+                         |--> archivos -----> doc --> 1.pdf
+                         |                |--> img --> png --> varias img
+                         |
+                         |--> Json
