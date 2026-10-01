@@ -1,7 +1,8 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ContextTypes
-from handlers.dolar import texto_cotizacion_dolar
 
+from handlers.dolar import texto_cotizacion_dolar
+from handlers.riesgo import texto_riesgo_pais
 
 # callback_data -> texto de respuesta cuando todavía no está implementado
 FUNCIONES_PENDIENTES = {
@@ -52,8 +53,12 @@ async def boton_ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     if query.data == "dolar":
         await context.bot.send_chat_action(chat_id=query.message.chat_id, action="typing")
         respuesta = texto_cotizacion_dolar()
+    elif query.data == "riesgo_pais":
+        await context.bot.send_chat_action(chat_id=query.message.chat_id, action="typing")
+        respuesta = texto_riesgo_pais()
     else:
         respuesta = FUNCIONES_PENDIENTES.get(
-        query.data, "No reconozco esa opción todavía 🤔"
-    )
+            query.data, "No reconozco esa opción todavía 🤔"
+        )
+
     await query.message.reply_text(respuesta, parse_mode="Markdown")
