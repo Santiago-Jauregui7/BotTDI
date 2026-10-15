@@ -13,7 +13,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         f"¡Hola {nombre}! 👋\n\n"
         "Soy tu bot de *finanzas, política y cultura general* de Argentina.\n"
         "Puedo contarte sobre la cotización del dólar, presidentes históricos, "
-        "riesgo país, confianza en el gobierno y más.\n\n"
+        "riesgo país, inflacion mensual y más.\n\n"
         "Escribí /ayuda para ver todo lo que puedo hacer."
     )
 

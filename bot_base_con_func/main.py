@@ -3,6 +3,7 @@ import logging
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, TypeHandler
 from telegram import Update
 from handlers.historial import historial, registrar_update
+from handlers.presidentes import presidente
  
 from config import BOT_TOKEN
 from handlers.start import start
@@ -23,6 +24,7 @@ def main() -> None:
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ayuda", ayuda))
     app.add_handler(CommandHandler("historial", historial))
+    app.add_handler(CommandHandler("presidente", presidente))
 
  
     # Botones inline (los del /ayuda por ahora)

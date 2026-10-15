@@ -4,6 +4,7 @@ from telegram.ext import ContextTypes
 from handlers.dolar import texto_cotizacion_dolar
 from handlers.riesgo import texto_riesgo_pais
 from handlers.historial import texto_historial
+from handlers.presidentes import texto_presidentes_recientes
 
 # callback_data -> texto de respuesta cuando todavía no está implementado
 FUNCIONES_PENDIENTES = {
@@ -36,6 +37,7 @@ async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "/start — iniciar la conversación\n"
         "/ayuda — ver esta ayuda\n\n"
         "/historial — ver tus últimas 5 consultas\n\n"
+        "/presidente <nombre> — buscar un presidente histórico\n\n"
         "También podés tocar uno de estos atajos 👇"
     )
     await update.message.reply_text(
@@ -60,6 +62,9 @@ async def boton_ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         respuesta = texto_riesgo_pais()
     elif query.data == "historial":
         respuesta = texto_historial(query.message.chat_id)
+    elif query.data == "presidentes":
+        await context.bot.send_chat_action(chat_id=query.message.chat_id, action="typing")
+        respuesta = texto_presidentes_recientes()
     else:
         respuesta = FUNCIONES_PENDIENTES.get(
             query.data, "No reconozco esa opción todavía 🤔"
