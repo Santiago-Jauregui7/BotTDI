@@ -25,15 +25,41 @@ def _normalizar(texto: str) -> str:
     sin_tildes = "".join(c for c in sin_tildes if unicodedata.category(c) != "Mn")
     return sin_tildes.lower()
 
+def _agrupar_por_nombre(presidentes: list[dict]) -> list[list[dict]]:
+    """
+    Agrupa los mandatos de una misma persona.
+    Devuelve una lista de grupos: cada grupo es la lista de mandatos de un presidente.
+    """
+    grupos: dict[str, list[dict]] = {}
+    for p in presidentes:
+        clave = _normalizar(p.get("nombre", "s/d"))
+        grupos.setdefault(clave, []).append(p)
+    return list(grupos.values())
 
-def _ficha(p: dict) -> str:
-    lineas = [f"🏛️ *{escape_markdown(p.get('nombre', 's/d'))}*"]
-    if p.get("periodoPresidencial"):
-        lineas.append(f"📅 Período: {escape_markdown(p['periodoPresidencial'])}")
-    if p.get("partido"):
-        lineas.append(f"🎗️ Partido: {escape_markdown(p['partido'])}")
-    if p.get("vicepresidente"):
-        lineas.append(f"🤝 Vicepresidente: {escape_markdown(p['vicepresidente'])}")
+def _ficha(mandatos: list[dict]) -> str:
+    primero = mandatos[0]
+    lineas = [f"🏛️ *{escape_markdown(primero.get('nombre', 's/d'))}*"]
+
+    if len(mandatos) == 1:
+        if primero.get("periodoPresidencial"):
+            lineas.append(f"📅 Período: {escape_markdown(primero['periodoPresidencial'])}")
+        if primero.get("partido"):
+            lineas.append(f"🎗️ Partido: {escape_markdown(primero['partido'])}")
+        if primero.get("vicepresidente"):
+            lineas.append(f"🤝 Vicepresidente: {escape_markdown(primero['vicepresidente'])}")
+        return "\n".join(lineas)
+
+    lineas.append(f"\n📅 *{len(mandatos)} mandatos:*")
+    for i, m in enumerate(mandatos, start=1):
+        detalle = escape_markdown(m.get("periodoPresidencial", "s/d"))
+        extras = []
+        if m.get("partido"):
+            extras.append(escape_markdown(m["partido"]))
+        if m.get("vicepresidente"):
+            extras.append(f"VP: {escape_markdown(m['vicepresidente'])}")
+        if extras:
+            detalle += f" ({', '.join(extras)})"
+        lineas.append(f"{i}. {detalle}")
     return "\n".join(lineas)
 
 
@@ -83,12 +109,13 @@ async def presidente(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         )
         return
 
-    for p in coincidencias[:3]:  # máximo 3 para no inundar el chat
-        ficha = _ficha(p)
-        if p.get("imagen"):
+    for mandatos in _agrupar_por_nombre(coincidencias)[:3]:  # máximo 3 personas
+        ficha = _ficha(mandatos)
+        imagen = next((m["imagen"] for m in mandatos if m.get("imagen")), None)
+        if imagen:
             try:
                 await update.message.reply_photo(
-                    photo=p["imagen"], caption=ficha, parse_mode="Markdown"
+                    photo=imagen, caption=ficha, parse_mode="Markdown"
                 )
                 continue
             except TelegramError:
