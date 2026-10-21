@@ -53,3 +53,12 @@ def texto_cotizacion_dolar() -> str:
         )
 
     return "\n".join(lineas)
+
+async def dolar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Comando /dolar: cotización del dólar oficial y blue."""
+    await context.bot.send_chat_action(
+        chat_id=update.effective_chat.id, action="typing"
+    )
+    await update.message.reply_text(
+        texto_cotizacion_dolar(), parse_mode="Markdown"
+    )

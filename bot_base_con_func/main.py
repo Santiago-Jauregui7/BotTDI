@@ -1,10 +1,12 @@
 import logging
  
-from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, TypeHandlerMessageHandler, filters
+from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, TypeHandler , MessageHandler, filters
 from telegram import Update
 from handlers import mensajes
 from handlers.historial import historial, registrar_update
 from handlers.presidentes import presidente
+from handlers.inflacion import inflacion
+from handlers.dolar import dolar
  
 from config import BOT_TOKEN
 from handlers.start import start
@@ -26,6 +28,8 @@ def main() -> None:
     app.add_handler(CommandHandler("ayuda", ayuda))
     app.add_handler(CommandHandler("historial", historial))
     app.add_handler(CommandHandler("presidente", presidente))
+    app.add_handler(CommandHandler("inflacion", inflacion))
+    app.add_handler(CommandHandler("dolar", dolar))
 
  
     # Botones inline (los del /ayuda por ahora)
