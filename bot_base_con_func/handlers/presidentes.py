@@ -25,6 +25,7 @@ def _normalizar(texto: str) -> str:
     sin_tildes = "".join(c for c in sin_tildes if unicodedata.category(c) != "Mn")
     return sin_tildes.lower()
 
+
 def _agrupar_por_nombre(presidentes: list[dict]) -> list[list[dict]]:
     """
     Agrupa los mandatos de una misma persona.
@@ -35,6 +36,7 @@ def _agrupar_por_nombre(presidentes: list[dict]) -> list[list[dict]]:
         clave = _normalizar(p.get("nombre", "s/d"))
         grupos.setdefault(clave, []).append(p)
     return list(grupos.values())
+
 
 def _ficha(mandatos: list[dict]) -> str:
     primero = mandatos[0]
