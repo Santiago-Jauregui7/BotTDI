@@ -1,0 +1,19 @@
+# Entorno virtual
+venv/
+.venv/
+
+# Variables de entorno reales (nunca se sube)
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Historial de uso del bot (datos generados, no código)
+bot_base_con_func/historial/*.csv
+
+# VSCode
+.vscode/

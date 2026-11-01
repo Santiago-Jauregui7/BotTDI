@@ -1,0 +1,7 @@
+ipykernel==7.4.0
+matplotlib==3.11.2
+matplotlib-inline==0.2.2
+pyTelegramBotAPI==4.37.1
+python-dotenv==1.0.1
+requests==2.32.3
+pandas==3.1.0
